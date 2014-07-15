@@ -10,8 +10,8 @@ class SpringSocialGoogleGrailsPlugin {
 
     // TODO Fill in these fields
     def title = "Spring Social Google Plugin" // Headline display name of the plugin
-    def author = "Your name"
-    def authorEmail = ""
+    def author = "Eduardo Diaz"
+    def authorEmail = "iamedu@gmail.com"
     def description = '''\
 Brief summary/description of the plugin.
 '''
@@ -37,8 +37,24 @@ Brief summary/description of the plugin.
 //    def scm = [ url: "http://svn.codehaus.org/grails-plugins/" ]
 
     def doWithSpring = {
+      xmlns context: "http://www.springframework.org/schema/context"
+      context.'component-scan'('base-package': "grails.plugins.springsocial.config.google")
     }
 
     def doWithConfig = { config ->
+      springSocialGoogle {
+        page.connect = "/springsocial/google/connect"
+        page.connectedHome = "/springSocialGoogle/index"
+        page.profile = "/springSocialGoogle/index"
+        page.timeLine = "/springsocial/google/timeline"
+        page.profiles = "/springsocial/google/profiles"
+        page.directMessages = "/springsocial/google/messages"
+        page.trends = "/springsocial/google/trends"
+        page.deniedHome = "/springSocialGoogle/login"
+      }
+      def doWithConfigOptions = {
+        clientId(type: String)
+        clientSecret(type: String)
+      }
     }
 }
